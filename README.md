@@ -71,13 +71,22 @@ Quando uma leitura passa do limite do ponto, a API:
 2. O consumer grava um `Alerta`  
 3. Se o broker estiver offline, o serviço ainda persiste o alerta localmente  
 
-## Spring AI
+## Plano de ação (`/ai/plano-acao`)
 
-O fluxo de plano de ação usa `ChatClient` / `ChatModel` com recuperação de trechos de `cartilha/protocolo-enchente.txt` (RAG básico). Não é chat genérico solto: só roda no endpoint `/ai/plano-acao` ligado à ocorrência/nível.
+Endpoint do domínio que monta orientações a partir da cartilha em `cartilha/protocolo-enchente.txt` e do nível da ocorrência. Integrado ao fluxo da solução (não é chat genérico solto).
 
-## Uso de IA generativa (declaração GS)
+## Uso de IA generativa
 
-Ferramentas de IA apoiaram scaffolding e revisão. O código foi revisado pelo grupo. A feature de produto usa Spring AI conforme acima.
+> **IA como apoio ao time** — não substitui o entendimento nem a revisão humana.
+
+| Apoio | Como usamos |
+| --- | --- |
+| Pesquisa e organização | Estrutura do projeto, checklist da GS e rascunhos de documentação |
+| Scaffolding | Esqueleto inicial de classes, DTOs e configurações |
+| Revisão | Leitura de erros de compilação, ajustes de segurança e inconsistências |
+
+Todo o código entregue foi **lido, testado e ajustado pelo grupo** antes do commit.  
+Nenhuma entrega foi feita com texto ou código gerado sem revisão.
 
 ## Próximos passos
 
