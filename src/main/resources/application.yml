@@ -1,0 +1,78 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: floodshield-api
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiChatAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiEmbeddingAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiImageAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiAudioSpeechAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiAudioTranscriptionAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiModerationAutoConfiguration
+  datasource:
+    url: jdbc:h2:mem:floodshield;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:floodshield}
+    password: ${RABBITMQ_PASS:floodshield}
+    listener:
+      simple:
+        auto-startup: ${RABBITMQ_LISTENER_ENABLED:false}
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:sk-local-disabled}
+      chat:
+        options:
+          model: gpt-4o-mini
+          temperature: 0.2
+
+floodshield:
+  jwt:
+    secret: ${JWT_SECRET:FloodShieldCitizenTechSecretKey2026FIAPGSMustBeLongEnough}
+    expiration-ms: 86400000
+  messaging:
+    exchange: floodshield.exchange
+    queue: floodshield.nivel-critico
+    routing-key: nivel.critico
+  water-level:
+    critical-cm: 40
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  health:
+    rabbit:
+      enabled: ${RABBITMQ_HEALTH_ENABLED:false}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    br.fiap.floodshield: INFO
