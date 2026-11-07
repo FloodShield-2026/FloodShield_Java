@@ -22,6 +22,13 @@ public class Abrigo {
     private String endereco;
 
     @Column(nullable = false)
+    private String bairro;
+
+    private Double latitude;
+
+    private Double longitude;
+
+    @Column(nullable = false)
     private Integer vagasDisponiveis;
 
     @Column(nullable = false)
@@ -49,6 +56,30 @@ public class Abrigo {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Integer getVagasDisponiveis() {

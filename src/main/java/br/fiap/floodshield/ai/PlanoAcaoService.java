@@ -2,8 +2,8 @@ package br.fiap.floodshield.ai;
 
 import br.fiap.floodshield.domain.Abrigo;
 import br.fiap.floodshield.domain.Ocorrencia;
-import br.fiap.floodshield.repository.AbrigoRepository;
 import br.fiap.floodshield.repository.OcorrenciaRepository;
+import br.fiap.floodshield.service.AbrigoService;
 import br.fiap.floodshield.web.dto.DomainDtos.PlanoAcaoRequest;
 import br.fiap.floodshield.web.dto.DomainDtos.PlanoAcaoResponse;
 import java.io.IOException;
@@ -24,16 +24,16 @@ public class PlanoAcaoService {
     private static final Logger log = LoggerFactory.getLogger(PlanoAcaoService.class);
 
     private final OcorrenciaRepository ocorrenciaRepository;
-    private final AbrigoRepository abrigoRepository;
+    private final AbrigoService abrigoService;
     private final ObjectProvider<ChatClient.Builder> chatClientBuilderProvider;
     private final String cartilha;
 
     public PlanoAcaoService(
             OcorrenciaRepository ocorrenciaRepository,
-            AbrigoRepository abrigoRepository,
+            AbrigoService abrigoService,
             ObjectProvider<ChatClient.Builder> chatClientBuilderProvider) {
         this.ocorrenciaRepository = ocorrenciaRepository;
-        this.abrigoRepository = abrigoRepository;
+        this.abrigoService = abrigoService;
         this.chatClientBuilderProvider = chatClientBuilderProvider;
         this.cartilha = loadCartilha();
     }
@@ -51,10 +51,13 @@ public class PlanoAcaoService {
         String bairro = request.neighborhood() != null
                 ? request.neighborhood()
                 : ocorrencia != null ? ocorrencia.getBairro() : "sua região";
+        Double lat = ocorrencia != null ? ocorrencia.getLatitude() : null;
+        Double lng = ocorrencia != null ? ocorrencia.getLongitude() : null;
 
-        Abrigo abrigo = abrigoRepository.findByAbertoTrueOrderByNomeAsc().stream().findFirst().orElse(null);
-        String abrigoNome = abrigo != null ? abrigo.getNome() + " — " + abrigo.getEndereco() : "ponto de apoio da Defesa Civil";
-
+        Abrigo abrigo = abrigoService.sugerirMaisProximo(bairro, lat, lng).orElse(null);
+        String abrigoNome = abrigo != null
+                ? abrigo.getNome() + " — " + abrigo.getEndereco() + " (" + abrigo.getBairro() + ")"
+                : "ponto de apoio da Defesa Civil";
         ChatClient.Builder builder = chatClientBuilderProvider.getIfAvailable();
         if (builder != null && isOpenAiConfigured()) {
             try {

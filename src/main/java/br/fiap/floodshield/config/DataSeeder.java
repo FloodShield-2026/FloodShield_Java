@@ -46,24 +46,53 @@ public class DataSeeder {
 
             Abrigo a1 = new Abrigo();
             a1.setNome("Escola Municipal Penha");
-            a1.setEndereco("Rua Padre Antônio Vieira, 120 — Penha");
+            a1.setEndereco("Rua Padre Antônio Vieira, 120");
+            a1.setBairro("Penha");
+            a1.setLatitude(-23.5225);
+            a1.setLongitude(-46.5421);
             a1.setVagasDisponiveis(84);
             a1.setAberto(true);
             abrigoRepository.save(a1);
 
             Abrigo a2 = new Abrigo();
             a2.setNome("GINÁSIO Itaquera");
-            a2.setEndereco("Av. Itaquera, 5500 — Itaquera");
+            a2.setEndereco("Av. Itaquera, 5500");
+            a2.setBairro("Itaquera");
+            a2.setLatitude(-23.5401);
+            a2.setLongitude(-46.4712);
             a2.setVagasDisponiveis(210);
             a2.setAberto(true);
             abrigoRepository.save(a2);
 
             Abrigo a3 = new Abrigo();
             a3.setNome("Centro Comunitário Jardim Pantanal");
-            a3.setEndereco("Rua das Hortênsias, 45 — Jardim Pantanal");
+            a3.setEndereco("Rua das Hortênsias, 45");
+            a3.setBairro("Jardim Pantanal");
+            a3.setLatitude(-23.4978);
+            a3.setLongitude(-46.4015);
             a3.setVagasDisponiveis(36);
             a3.setAberto(false);
             abrigoRepository.save(a3);
+
+            Abrigo a4 = new Abrigo();
+            a4.setNome("CEEJA São Mateus");
+            a4.setEndereco("Av. Mateo Bei, 2888");
+            a4.setBairro("São Mateus");
+            a4.setLatitude(-23.5984);
+            a4.setLongitude(-46.4819);
+            a4.setVagasDisponiveis(120);
+            a4.setAberto(true);
+            abrigoRepository.save(a4);
+
+            Abrigo a5 = new Abrigo();
+            a5.setNome("Centro Esportivo Tatuapé");
+            a5.setEndereco("Rua Serra de Botucatu, 885");
+            a5.setBairro("Tatuapé");
+            a5.setLatitude(-23.5408);
+            a5.setLongitude(-46.5765);
+            a5.setVagasDisponiveis(95);
+            a5.setAberto(true);
+            abrigoRepository.save(a5);
 
             PontoRegua ponto = new PontoRegua();
             ponto.setNome("Régua Carvalho Pinto");

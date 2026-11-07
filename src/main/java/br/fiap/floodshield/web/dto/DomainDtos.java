@@ -10,12 +10,25 @@ public final class DomainDtos {
     private DomainDtos() {
     }
 
-    public record AbrigoResponse(Long id, String name, String address, Integer availableSlots, boolean open) {
+    public record AbrigoResponse(
+            Long id,
+            String name,
+            String address,
+            String neighborhood,
+            Double latitude,
+            Double longitude,
+            Integer availableSlots,
+            boolean open,
+            Double distanceKm,
+            boolean matchedNeighborhood) {
     }
 
     public record AbrigoRequest(
             @NotBlank String name,
             @NotBlank String address,
+            @NotBlank String neighborhood,
+            Double latitude,
+            Double longitude,
             @NotNull Integer availableSlots,
             Boolean open) {
     }
