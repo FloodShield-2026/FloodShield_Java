@@ -13,16 +13,38 @@ Repositório: https://github.com/FloodShield-2026/FloodShield_Java
 | Nathan Gonçalves Pereira Mendes | 564666 |
 | Raphael Gomes Mancera | 562279 |
 
+## Integração multidisciplinar
+
+Uma solução CitizenTech — cada disciplina com papel claro e link do repositório.
+
+| Disciplina | Papel no FloodShield | Repositório / artefato |
+| --- | --- | --- |
+| **Java Advanced** (este repo) | API REST do domínio, JWT, Spring AI, RabbitMQ | https://github.com/FloodShield-2026/FloodShield_Java |
+| **Mobile Application Development** | App Expo consome esta API (`EXPO_PUBLIC_JAVA_API_URL`) | https://github.com/FloodShield-2026/FloodShield_Mobile |
+| **IA / Spring AI** | Plano de ação com RAG da cartilha (`POST /ai/plano-acao`) | Endpoint neste repo + `cartilha/protocolo-enchente.txt` |
+| **Advanced Business (.NET)** | Check-in / ajuda com `Idempotency-Key` (consumido pelo Mobile) | *repo a publicar pelo time .NET* |
+| **DevOps** | Azure (App Service / SQL), Pipelines, URL pública da API | *repo/scripts Azure CLI do time DevOps* |
+| **Database** | Oracle PL/SQL + MongoDB (NoSQL) da CitizenTech | *repo Database — procedures/packages fora deste backend* |
+
+> PDFs de sprint / evidências ficam em `docs/` (nunca na raiz do repositório).
+
 ## Stack
 
 - Java 21 + Spring Boot 3.4
-- Spring Data JPA + H2 (dev) / PostgreSQL (prod)
+- Spring Data JPA + **Flyway** (H2 em dev / PostgreSQL em prod)
 - Spring Security + JWT (`CIDADAO`, `GESTOR`)
-- Bean Validation + `@RestControllerAdvice`
+- Bean Validation + `@RestControllerAdvice` (inclui **409** em conflito de unicidade)
 - Spring AMQP / RabbitMQ (evento `NivelCritico`)
-- Spring AI (`ChatModel` + RAG da cartilha local)
+- **Spring AI** (`ChatModel` + RAG da cartilha local — fallback offline)
 - springdoc OpenAPI / Swagger UI
 - Paginação nos CRUDs
+
+## Segurança e segredos
+
+- **Nunca** commitar senha real, connection string ou API key.
+- Copie `.env.example` → `.env` (`.env` está no `.gitignore`).
+- Em produção: defina `JWT_SECRET`, `SPRING_DATASOURCE_*` e, se usar LLM, `OPENAI_API_KEY`.
+- Se algum segredo já vazou no histórico do Git: **troque a senha/chave imediatamente** e rode o app só com variáveis de ambiente.
 
 ## Como rodar
 
@@ -37,11 +59,35 @@ mvn spring-boot:run
 - Swagger: http://localhost:8080/swagger-ui.html  
 - Health: http://localhost:8080/actuator/health  
 
-Para ativar o consumer RabbitMQ:
+Consumer RabbitMQ:
 
 ```bash
 RABBITMQ_LISTENER_ENABLED=true mvn spring-boot:run
 ```
+
+Perfil produção (PostgreSQL):
+
+```bash
+SPRING_PROFILES_ACTIVE=prod ^
+SPRING_DATASOURCE_URL=jdbc:postgresql://HOST:5432/floodshield ^
+SPRING_DATASOURCE_USERNAME=... ^
+SPRING_DATASOURCE_PASSWORD=... ^
+JWT_SECRET=... ^
+mvn spring-boot:run
+```
+
+## Database (Flyway)
+
+Migrations em `src/main/resources/db/migration/`:
+
+| Migration | Conteúdo |
+| --- | --- |
+| `V1__create_schema.sql` | Tabelas: usuarios, abrigos, pontos_regua, ocorrencias, leituras, alertas |
+| `V2__constraints_and_indexes.sql` | Unique de e-mail / ponto+bairro + índices FK |
+
+Hibernate usa `ddl-auto: validate` — o schema vem do Flyway, não de auto-update.
+
+PL/SQL, packages e MongoDB pertencem à disciplina **Database** (repo separado), não a esta API.
 
 ## Usuários de teste
 
@@ -60,7 +106,7 @@ RABBITMQ_LISTENER_ENABLED=true mvn spring-boot:run
 | GET/POST/PUT | `/abrigos` | Abrigos (escrita GESTOR) |
 | GET | `/pontos` | Pontos de régua |
 | GET/POST | `/leituras` | Leituras + dispara alerta crítico |
-| POST | `/ai/plano-acao` | Plano de ação (Spring AI + RAG) |
+| POST | `/ai/plano-acao` | Plano de ação (**Spring AI** + RAG) |
 | GET | `/alertas` | Alertas gerados |
 
 ## Arquitetura distribuída (requisito 5A)
@@ -71,11 +117,26 @@ Quando uma leitura passa do limite do ponto, a API:
 2. O consumer grava um `Alerta`  
 3. Se o broker estiver offline, o serviço ainda persiste o alerta localmente  
 
-## Plano de ação (`/ai/plano-acao`)
+## Plano de ação (`/ai/plano-acao`) — IA na solução
 
-Endpoint do domínio que monta orientações a partir da cartilha em `cartilha/protocolo-enchente.txt` e do nível da ocorrência. Integrado ao fluxo da solução (não é chat genérico solto).
+Funcionalidade de domínio (não é chat genérico):
 
-## Uso de IA generativa
+1. Lê ocorrência / nível / bairro  
+2. Sugere abrigo mais próximo  
+3. Monta plano com **Spring AI** + protocolo em `cartilha/protocolo-enchente.txt`  
+4. Sem `OPENAI_API_KEY`, usa RAG local da mesma cartilha  
+
+## Integração com o Mobile
+
+App: https://github.com/FloodShield-2026/FloodShield_Mobile  
+
+```bash
+EXPO_PUBLIC_JAVA_API_URL=http://localhost:8080
+```
+
+Quando o DevOps publicar no Azure, o Mobile troca pela URL pública.
+
+## Uso de IA generativa (declaração do time)
 
 > **IA como apoio ao time** — não substitui o entendimento nem a revisão humana.
 
@@ -85,11 +146,18 @@ Endpoint do domínio que monta orientações a partir da cartilha em `cartilha/p
 | Scaffolding | Esqueleto inicial de classes, DTOs e configurações |
 | Revisão | Leitura de erros de compilação, ajustes de segurança e inconsistências |
 
-Todo o código entregue foi **lido, testado e ajustado pelo grupo** antes do commit.  
-Nenhuma entrega foi feita com texto ou código gerado sem revisão.
+Todo o código entregue foi **lido, testado e ajustado pelo grupo** antes do commit.
 
-## Próximos passos
+## Entrega Java (checklist)
 
-- Perfil Azure SQL + deploy App Service (DevOps)
-- Ligar o app Mobile em `EXPO_PUBLIC_JAVA_API_URL`
-- Vídeo pitch ≤ 5 min
+- [x] README com como rodar, usuários, endpoints, opção 5A (RabbitMQ)
+- [x] Spring AI no fluxo da solução
+- [x] API consumida pelo Mobile (link acima)
+- [ ] Link do deploy Azure (DevOps)
+- [ ] Link do vídeo pitch ≤ 5 min
+
+## Organização do repositório
+
+- Código e migrations versionados em commits pequenos por tema  
+- Evidências / PDFs → pasta `docs/`  
+- Segredos → só variáveis de ambiente
