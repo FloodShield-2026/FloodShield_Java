@@ -150,15 +150,8 @@ Demonstra a API Java (Swagger): JWT, CRUD, Spring AI, RabbitMQ/alertas, papéis 
 
 ## Uso de IA generativa (declaração do time)
 
-> **IA como apoio ao time** — não substitui o entendimento nem a revisão humana.
-
-| Apoio | Como usamos |
-| --- | --- |
-| Pesquisa e organização | Estrutura do projeto, checklist da GS e rascunhos de documentação |
-| Scaffolding | Esqueleto inicial de classes, DTOs e configurações |
-| Revisão | Leitura de erros de compilação, ajustes de segurança e inconsistências |
-
-Todo o código entregue foi **lido, testado e ajustado pelo grupo** antes do commit.
+A IA generativa foi usada **apenas como apoio de estudo** (dúvidas, organização de ideias e revisão de conceitos).  
+Não substitui o aprendizado nem a responsabilidade do grupo: o código entregue foi desenvolvido, testado e validado pelos integrantes.
 
 ## Entrega Java (checklist)
 
