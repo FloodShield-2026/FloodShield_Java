@@ -1,4 +1,4 @@
-FIAP — Global Solution 2026/2 — CitizenTech
+﻿FIAP — Global Solution 2026/2 — CitizenTech
 Disciplina: Java Advanced
 Grupo: FloodShield
 
@@ -16,3 +16,5 @@ https://youtu.be/5QRUoqrZJ-A
 
 App Mobile que consome esta API:
 https://github.com/FloodShield-2026/FloodShield_Mobile
+
+Observação: repositório público (acesso de leitura sem login). E-mail do professor para referência: profpietro.nunes@fiap.com.br
