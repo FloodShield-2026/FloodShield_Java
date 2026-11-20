@@ -2,7 +2,13 @@
 
 Backend Spring Boot da CitizenTech **FloodShield** — Global Solution FIAP 2026/2.
 
-Repositório: https://github.com/FloodShield-2026/FloodShield_Java
+**Predict. Protect. Save Lives.**
+
+| Artefato | Link |
+| --- | --- |
+| Repositório | https://github.com/FloodShield-2026/FloodShield_Java |
+| Vídeo pitch (≤ 5 min) | https://youtu.be/5QRUoqrZJ-A |
+| App Mobile (consome esta API) | https://github.com/FloodShield-2026/FloodShield_Mobile |
 
 ## Equipe
 
@@ -22,11 +28,11 @@ Uma solução CitizenTech — cada disciplina com papel claro e link do reposit�
 | **Java Advanced** (este repo) | API REST do domínio, JWT, Spring AI, RabbitMQ | https://github.com/FloodShield-2026/FloodShield_Java |
 | **Mobile Application Development** | App Expo consome esta API (`EXPO_PUBLIC_JAVA_API_URL`) | https://github.com/FloodShield-2026/FloodShield_Mobile |
 | **IA / Spring AI** | Plano de ação com RAG da cartilha (`POST /ai/plano-acao`) | Endpoint neste repo + `cartilha/protocolo-enchente.txt` |
-| **Advanced Business (.NET)** | Check-in / ajuda com `Idempotency-Key` (consumido pelo Mobile) | *repo a publicar pelo time .NET* |
-| **DevOps** | Azure (App Service / SQL), Pipelines, URL pública da API | *repo/scripts Azure CLI do time DevOps* |
-| **Database** | Oracle PL/SQL + MongoDB (NoSQL) da CitizenTech | *repo Database — procedures/packages fora deste backend* |
+| **Advanced Business (.NET)** | Doações / check-in com `Idempotency-Key` | https://github.com/brunovb002/floodshield-doacoes |
+| **DevOps** | Azure DevOps (Boards, Repos, Pipelines) + App Service | https://dev.azure.com/RM566366/GS%202026%20-%20FloodShield · API .NET: https://app-floodshield-doacoes.azurewebsites.net/scalar |
+| **Database** | Oracle PL/SQL + MongoDB (NoSQL) da CitizenTech | Repo Database (procedures/packages fora deste backend) |
 
-> PDFs de sprint / evidências ficam em `docs/` (nunca na raiz do repositório).
+> PDFs / evidências ficam em `docs/` (nunca na raiz do repositório).
 
 ## Stack
 
@@ -134,7 +140,13 @@ App: https://github.com/FloodShield-2026/FloodShield_Mobile
 EXPO_PUBLIC_JAVA_API_URL=http://localhost:8080
 ```
 
-Quando o DevOps publicar no Azure, o Mobile troca pela URL pública.
+Quando houver URL pública da API Java no Azure (DevOps), o Mobile troca pela URL publicada.
+
+## Vídeo pitch
+
+Link público (YouTube): **https://youtu.be/5QRUoqrZJ-A**
+
+Demonstra a API Java (Swagger): JWT, CRUD, Spring AI, RabbitMQ/alertas, papéis e integração com o fluxo do cidadão.
 
 ## Uso de IA generativa (declaração do time)
 
@@ -153,8 +165,8 @@ Todo o código entregue foi **lido, testado e ajustado pelo grupo** antes do com
 - [x] README com como rodar, usuários, endpoints, opção 5A (RabbitMQ)
 - [x] Spring AI no fluxo da solução
 - [x] API consumida pelo Mobile (link acima)
-- [ ] Link do deploy Azure (DevOps)
-- [ ] Link do vídeo pitch ≤ 5 min
+- [x] Link do vídeo pitch ≤ 5 min → https://youtu.be/5QRUoqrZJ-A
+- [ ] Link do deploy Azure da **API Java** (opcional — “se houver”; o DevOps publicou a API .NET de doações)
 
 ## Organização do repositório
 

@@ -1,0 +1,18 @@
+FIAP — Global Solution 2026/2 — CitizenTech
+Disciplina: Java Advanced
+Grupo: FloodShield
+
+Integrantes:
+- Bruno Vinicius Barbosa — RM 566366
+- Guilherme de Andrade Martini — RM 566087
+- Nathan Gonçalves Pereira Mendes — RM 564666
+- Raphael Gomes Mancera — RM 562279
+
+Repositório GitHub (público):
+https://github.com/FloodShield-2026/FloodShield_Java
+
+Vídeo pitch (YouTube, ≤ 5 min):
+https://youtu.be/5QRUoqrZJ-A
+
+App Mobile que consome esta API:
+https://github.com/FloodShield-2026/FloodShield_Mobile
