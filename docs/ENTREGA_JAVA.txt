@@ -11,6 +11,9 @@ Integrantes:
 Repositório GitHub (público):
 https://github.com/FloodShield-2026/FloodShield_Java
 
+Vídeo da apresentação da Global Solution (YouTube):
+https://youtu.be/osdBjXJQBMQ
+
 Vídeo pitch (YouTube, ≤ 5 min):
 https://youtu.be/5QRUoqrZJ-A
 

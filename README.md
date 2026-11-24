@@ -7,6 +7,7 @@ Backend Spring Boot da CitizenTech **FloodShield** — Global Solution FIAP 2026
 | Artefato | Link |
 | --- | --- |
 | Repositório | https://github.com/FloodShield-2026/FloodShield_Java |
+| **Vídeo da apresentação da Global Solution** | https://youtu.be/osdBjXJQBMQ |
 | Vídeo pitch (≤ 5 min) | https://youtu.be/5QRUoqrZJ-A |
 | App Mobile (consome esta API) | https://github.com/FloodShield-2026/FloodShield_Mobile |
 
@@ -142,6 +143,12 @@ EXPO_PUBLIC_JAVA_API_URL=http://localhost:8080
 
 Quando houver URL pública da API Java no Azure (DevOps), o Mobile troca pela URL publicada.
 
+## Vídeo da apresentação da Global Solution
+
+Link público (YouTube): **https://youtu.be/osdBjXJQBMQ**
+
+Apresentação da disciplina Java Advanced: modelagem e relacionamentos, fluxo do JWT, Spring AI, parte distribuída (RabbitMQ) e o app Mobile consumindo esta API.
+
 ## Vídeo pitch
 
 Link público (YouTube): **https://youtu.be/5QRUoqrZJ-A**
@@ -159,6 +166,7 @@ Não substitui o aprendizado nem a responsabilidade do grupo: o código entregue
 - [x] Spring AI no fluxo da solução
 - [x] API consumida pelo Mobile (link acima)
 - [x] Link do vídeo pitch ≤ 5 min → https://youtu.be/5QRUoqrZJ-A
+- [x] Vídeo da apresentação da Global Solution → https://youtu.be/osdBjXJQBMQ
 - [ ] Link do deploy Azure da **API Java** (opcional — “se houver”; o DevOps publicou a API .NET de doações)
 
 ## Organização do repositório
